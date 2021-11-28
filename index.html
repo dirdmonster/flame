@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">	
+
+<title>✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧</title>
+
+<style>
+	canvas { width: 100%; height: 100% }
+
+	body{ 
+		 width: 100%; 
+		 height: 100% ;
+		border: none; 
+		overflow: hidden; 
+		margin: 0px; 
+	}
+</style>
+
+</head>
+
+<body>
+
+<div id='bar' style="position: absolute;z-index: 1; width: 100px; top:45%;left:50%; margin-left:-50px;text-align: center; font-family: '微软雅黑';font-size: 36px;color: #aaaaaa;">0%</div>
+
+<AUDIO style="DISPLAY: none" loop id="dang1"><SOURCE  src="./models/1.mp3"></AUDIO>
+
+<div style="position: absolute;width: 100px;top:30px">
+	<a onclick="call()"style="cursor: pointer;"><img src="./models/sun.gif" style="width: 170px;"></a>
+</div>
+
+<div style="position: absolute;width: 100px;top:30px;right: 70px;">
+	<a onclick="music3D()"style="cursor: pointer;"><img src="./models/moon.gif" style="width: 170px;"></a>
+</div>
+
+
+<script src="./js/three.js"></script>
+<script src="./js/three1.js"></script>
+<script src="./js/three2.js"></script>
+<script src="./js/OrbitControls.js"></script>
+
+<script>
+	
+	var SWtrue = false;
+	function call(){
+		if( SWtrue == false ){
+			hemiLight.intensity = 0.1;
+			pointLight.intensity = 0.1;
+			scene.background = textureMap2;
+			SWtrue = true; 
+		}else{
+			hemiLight.intensity = 0.5;
+			pointLight.intensity = 1;
+			scene.background = textureMap1;
+			SWtrue = false; 
+		}
+	}
+
+	var SWtrue1 = true;
+	function music3D(){
+		if( SWtrue1 == false ){
+			dang1.play();
+			SWtrue1 = true; 
+		}else{
+			dang1.pause();
+			SWtrue1 = false; 
+		}
+	}
+	
+	document.body.addEventListener('touchmove', function (e) {
+	  e.preventDefault();
+	}, {passive: false});
+	
+	
+	
+	function onProgress( xhr ) {	
+		var percentComplete = xhr.loaded / xhr.total * 99; 
+        document.getElementById('bar').innerHTML = Math.round( percentComplete )+'%';
+	};
+	function endProgress(){
+		document.getElementById('bar').innerHTML = '100%';
+		setTimeout(function(){
+			document.getElementById('bar').parentNode.removeChild(document.getElementById('bar'));
+    		Basic.visible = true;
+    		Basic1.visible = true;
+		dang1.play();
+   			controls.autoRotate = true;   
+   			controls.autoRotateSpeed = 0.4;
+		},1000);
+	}
+    var onError = function ( xhr ) { };
+
+
+
+var	container = document.createElement( 'div' );
+	document.body.appendChild( container );
+	
+var	camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100000 );
+	camera.position.set(-50,-15,0);
+	
+var	scene = new THREE.Scene();
+
+var hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.5 );
+   	hemiLight.position.set( 0, 500, 0 );
+   	scene.add( hemiLight ); 
+
+var pointLight = new THREE.PointLight(0xFFFFFF, 1);
+    scene.add(pointLight);
+
+var Basic = new THREE.Mesh( new THREE.PlaneBufferGeometry(0.00001, 0.00001), new THREE.MeshBasicMaterial({color: 0xffffff}) );
+    scene.add( Basic );  
+    Basic.visible = false;
+    
+var sphere = new THREE.SphereBufferGeometry( 0.01, 16, 8 );
+	light1 = new THREE.PointLight( 0xc40303, 4, 50 );
+	light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xc40303 } ) ) );
+	Basic.add( light1 );
+
+var Basic1 = new THREE.Mesh( new THREE.PlaneBufferGeometry(0.00001, 0.00001), new THREE.MeshBasicMaterial({color: 0xffffff}) );
+    scene.add( Basic1 );  
+    Basic1.visible = false;
+    
+var sphere1 = new THREE.SphereBufferGeometry( 0.01, 16, 8 );
+	light11 = new THREE.PointLight( 0xc40303, 4, 50 );
+	light11.add( new THREE.Mesh( sphere1, new THREE.MeshBasicMaterial( { color: 0xc40303 } ) ) );
+	Basic1.add( light11 );
+
+var focu = Array(), materialFocu,materialFocu1,coord,coord1;
+    focu[0] = new THREE.TextureLoader().load('./models/huoqiu_00000.png'); 
+	focu[1] = new THREE.TextureLoader().load('./models/huoqiu_00001.png'); 
+	focu[2] = new THREE.TextureLoader().load('./models/huoqiu_00002.png'); 
+	focu[3] = new THREE.TextureLoader().load('./models/huoqiu_00003.png');
+	focu[4] = new THREE.TextureLoader().load('./models/huoqiu_00004.png');
+	focu[5] = new THREE.TextureLoader().load('./models/huoqiu_00005.png');
+	focu[6] = new THREE.TextureLoader().load('./models/huoqiu_00006.png');
+	focu[7] = new THREE.TextureLoader().load('./models/huoqiu_00007.png');
+	focu[8] = new THREE.TextureLoader().load('./models/huoqiu_00008.png');
+	focu[9] = new THREE.TextureLoader().load('./models/huoqiu_00009.png');
+	focu[10] = new THREE.TextureLoader().load('./models/huoqiu_00010.png');
+	focu[11] = new THREE.TextureLoader().load('./models/huoqiu_00011.png');
+	focu[12] = new THREE.TextureLoader().load('./models/huoqiu_00012.png');
+	focu[13] = new THREE.TextureLoader().load('./models/huoqiu_00013.png');
+	focu[14] = new THREE.TextureLoader().load('./models/huoqiu_00014.png');
+
+    materialFocu = new THREE.SpriteMaterial({ map:focu[0], transparent:true, depthWrite:false });
+    coord = new THREE.Sprite( materialFocu );
+    coord.scale.set(3,4,3)
+	Basic.add(coord); 	
+
+    materialFocu1 = new THREE.SpriteMaterial({ map:focu[0], transparent:true, depthWrite:false });
+    coord1 = new THREE.Sprite( materialFocu1 );
+    coord1.scale.set(3,4,3)
+	Basic1.add(coord1); 	
+
+
+var	renderer = new THREE.WebGLRenderer( { antialias: true,alpha:true } );
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.setPixelRatio( window.devicePixelRatio );      
+	renderer.setClearColor ( '#ffffff' );     
+	container.appendChild( renderer.domElement );
+	renderer.gammaInput = true;
+	renderer.gammaOutput = true;
+
+var controls = new THREE.OrbitControls( camera );
+    controls.enabled = true;
+    controls.target.set(0,0,0);
+    controls.autoRotate = false;
+
+var textureMap1,textureMap2;
+var textureLoader = new THREE.TextureLoader();
+	textureLoader.load( './models/sky1.jpg', function ( texture ) {
+		texture.mapping = THREE.UVMapping;
+		var options = {
+			resolution: 1024,
+			generateMipmaps: true,
+			minFilter: THREE.LinearMipMapLinearFilter, 
+			magFilter: THREE.LinearFilter
+		};
+		textureMap1 = new THREE.CubemapGenerator( renderer ).fromEquirectangular( texture, options );
+		scene.background = textureMap1;
+	} );
+
+var textureLoader1 = new THREE.TextureLoader();
+	textureLoader1.load( './models/sky2.jpg', function ( texture ) {
+		texture.mapping = THREE.UVMapping;
+		var options = {
+			resolution: 1024,
+			generateMipmaps: true,
+			minFilter: THREE.LinearMipMapLinearFilter, 
+			magFilter: THREE.LinearFilter
+		};
+		textureMap2 = new THREE.CubemapGenerator( renderer ).fromEquirectangular( texture, options );
+	} );
+
+
+
+var	textureCube = new THREE.RGBELoader2()
+	.setDataType( THREE.UnsignedByteType )
+	.load( './models/020.hdr', function ( texture ) {
+		let cubeGenerator = new THREE.EquirectangularToCubeGenerator( texture, { resolution: 1024 } );
+		cubeGenerator.update( renderer );
+		let pmremGenerator = new THREE.PMREMGenerator( cubeGenerator.renderTarget.texture );
+		pmremGenerator.update( renderer );
+		let pmremCubeUVPacker = new THREE.PMREMCubeUVPacker( pmremGenerator.cubeLods );
+		pmremCubeUVPacker.update( renderer );
+        textureCube = pmremCubeUVPacker.CubeUVRenderTarget.texture;
+	});	
+ 
+window.addEventListener( 'resize', onWindowResize, false );
+function onWindowResize( event ) {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize( window.innerWidth, window.innerHeight );
+}
+
+var GLTFLoader = new THREE.GLTFLoader();
+    THREE.DRACOLoader.setDecoderPath( './js/gltf/' );
+	GLTFLoader.setDRACOLoader( new THREE.DRACOLoader() );
+	
+var thismodel, grounds=[];
+var train1,train2,train3;
+
+	GLTFLoader.load( './models/shan/shan.gltf', function ( gltf ) {		
+        train1 = gltf.scene.clone(); 
+        train1.scale.set(250,250,250); 
+        train1.position.set(0,-25,0)
+		train1.traverse( function ( child ) {		
+			if ( child.isMesh ) {
+				child.material.side = THREE.DoubleSide;
+			}
+		}); 
+		scene.add( train1 );
+		endProgress();    
+	});		
+
+var tt=0;  
+
+render(); 
+function render() {
+	requestAnimationFrame( render ); 
+	
+	var time = Date.now() * 0.0005;
+	Basic.position.x = Math.sin( time * 0.3 ) * 20;
+	Basic.position.y = Math.cos( time * 0.7 ) * 25;
+	Basic.position.z = Math.cos( time * 0.6 ) * 20;
+
+	Basic1.position.x = Math.sin( time * 0.5 + 2 ) * 20;
+	Basic1.position.y = Math.cos( time * 0.7 + 2  ) * 25;
+	Basic1.position.z = Math.cos( time * 0.3 + 2  ) * 20;
+
+
+	if( tt < 14 ){
+	    materialFocu.map = focu[Math.floor(tt)];
+	    tt += 0.4;
+	}else{
+	    tt = 0;  
+	}
+
+    TWEEN.update();
+	controls.update();
+    pointLight.position.copy ( camera.position );       
+    pointLight.scale.copy ( camera.scale ); 
+
+    renderer.clear();
+    renderer.render( scene, camera );
+       
+}
+
+</script>
+
+	
+</body>
+</html>
